@@ -9,7 +9,7 @@ install:
   - pip install coveralls
 
 script:
-  - pytest 
+  - python -m unittest
   - coverage run --source=app.api.v1.views -m pytest && coverage report
 
 after_success:
