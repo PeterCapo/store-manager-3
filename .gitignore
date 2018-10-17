@@ -3,3 +3,4 @@ instance/
 .env
 .vscode
 venv/
+.coverage

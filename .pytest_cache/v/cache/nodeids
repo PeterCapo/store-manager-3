@@ -1,0 +1,10 @@
+[
+  "app/tests/v1/test_products.py::TestProducts::test_create_products",
+  "app/tests/v1/test_products.py::TestProducts::test_get_all_products",
+  "app/tests/v1/test_products.py::TestProducts::test_invalid_product_name",
+  "app/tests/v1/test_products.py::TestProducts::test_specific_product",
+  "app/tests/v1/test_sales.py::TestSales::test_create_sales",
+  "app/tests/v1/test_sales.py::TestSales::test_get_all_sales",
+  "app/tests/v1/test_sales.py::TestSales::test_invalid_item_name",
+  "app/tests/v1/test_sales.py::TestSales::test_specific_sale"
+]
