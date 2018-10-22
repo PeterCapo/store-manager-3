@@ -5,6 +5,8 @@ certifi==2018.10.15
 Click==7.0
 colorama==0.4.0
 Flask==1.0.2
+Flask-JWT==0.3.2
+Flask-JWT-Extended==3.13.1
 Flask-RESTful==0.3.6
 gunicorn==19.9.0
 isort==4.3.4
@@ -15,6 +17,7 @@ MarkupSafe==1.0
 mccabe==0.6.1
 pipenv==2018.10.13
 pycodestyle==2.4.0
+PyJWT==1.4.2
 pylint==2.1.1
 python-dotenv==0.9.1
 pytz==2018.5

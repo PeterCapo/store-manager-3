@@ -1,7 +1,6 @@
 from flask_restful import Resource
 import json
-from flask import Flask, jsonify, make_response, request
-from flask_jwt import JWT, jwt_required, current_identity
+from flask import jsonify, make_response, request
 
 sales = []
 products = []
@@ -26,10 +25,20 @@ class SpecificProduct(Resource):
                 'specific product': products[id]
             }), 200)
 
-class UpdateProduct(Resource):           
-    def put(self, id): 
+
+class DeleteProduct(Resource):
+    def delete(self, id):
+        product = products[id]
+        if product:
+            products.remove(product)
+            return {'Message': "Deleted"},
+        return {'Message': "Not found"}
+
+
+class UpdateProduct(Resource):
+    def put(self, id):
         data = json.loads(request.data)
-        assert( data['Product Name'])
+        assert(data['Product Name'])
         assert(data['Category'])
         assert(data['Stock Balance'])
         assert(data['Minimum Inventory'])
@@ -39,17 +48,23 @@ class UpdateProduct(Resource):
         for index, product in enumerate(products):
             if product['id'] == data['id']:
                 new_product = {
-                "productName": data['Product Name'],
-                "category": data['Category'],
-                "stockBalance": data['Stock Balance'],
-                "minStockBalance": data['Minimum Inventory'],
-                "price": data['Price'],
-                "id": data['id']
-                }
+                    "productName": data['Product Name'],
+                    "category": data['Category'],
+                    "stockBalance": data['Stock Balance'],
+                    "minStockBalance": data['Minimum Inventory'],
+                    "price": data['Price'],
+                    "id": data['id']
+                    }
 
                 products[index] = new_product
 
-                return new_product, 200
+                return make_response(jsonify(
+                    {
+                        'Message': 'Product updated',
+                        'status': 'ok',
+                        'Data': new_product
+                    }), 200)
+
 
 class Products(Resource):
     def get(self):
@@ -59,7 +74,7 @@ class Products(Resource):
                 'Message': "Success",
                 'My Products': products
             }), 200)
-            
+
     def post(self):
         data = request.get_json()
         id = len(products) + 1
@@ -97,7 +112,6 @@ class Sales(Resource):
                 'My Sales': sales
             }), 200)
 
-    @jwt_required
     def post(self):
         data = request.get_json()
         id = len(sales) + 1
