@@ -2,7 +2,9 @@ from flask_restful import Api
 from flask import Blueprint
 
 
-from .views import Sales, Products, SpecificProduct, SpecificSale, UpdateProduct, DeleteProduct
+from .views import Sales, Products
+from .views import SpecificProduct, SpecificSale
+from .views import UpdateProduct, DeleteProduct
 
 version1 = Blueprint('api', __name__, url_prefix='/api/v1')
 

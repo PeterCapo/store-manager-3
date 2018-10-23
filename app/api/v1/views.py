@@ -1,9 +1,9 @@
 from flask_restful import Resource
 import json
 from flask import jsonify, make_response, request
-
+from app.api.v1.models.products import *
+from app.api.v1.validators.utils import Validators
 sales = []
-products = []
 
 
 class SpecificSale(Resource):
@@ -84,16 +84,24 @@ class Products(Resource):
         minStockBalance = data['Minimum Inventory']
         price = data['Price']
 
+        if not Validators().valid_product_name(productName):
+            return {'message': 'Enter a valid product name'}, 400
+
         payload = {
             'id': id,
-            'Description': {
-                'Product Name': productName, 'Stock Balance': stockBalance,
-                'Minimum Inventory': minStockBalance,
-                'Category': category
-                },
+            'Product Name': productName, 'Stock Balance': stockBalance,
+            'Minimum Inventory': minStockBalance,
+            'Category': category,
             'Price': price
         }
         products.append(payload)
+
+        product = Product(
+            productName, price,
+            category, stockBalance,
+            minStockBalance
+            )
+        product.save
 
         return make_response(jsonify(
             {
@@ -119,15 +127,20 @@ class Sales(Resource):
         attendant = data['Attendant']
         quantity = data['Quantity']
         price = data['Price']
+        productId = data['product id']
 
-        payload = {
-            'id': id,
-            'Item Name': itemName,
-            'Attendant': attendant,
-            'Quantity': quantity,
-            'Price': price
-        }
+        for product in products:
+            if productId == int(product['id']):
+                payload = {
+                    'id': id,
+                    'Item Name': itemName,
+                    'Attendant': attendant,
+                    'Quantity': quantity,
+                    'Price': price,
+                    'product id': productId
+                    }
         sales.append(payload)
+        product['Stock Balance'] -= 1
 
         return make_response(jsonify(
             {

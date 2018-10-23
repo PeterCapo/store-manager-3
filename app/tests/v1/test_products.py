@@ -26,7 +26,7 @@ class TestProducts(unittest.TestCase):
 
         self.assertEqual(res.status_code, 201)
         self.assertEqual(response_data['Message'], "Product created")
-    
+
     def test_update_products(self):
         new_product = {
             "Product Name": "samsung",
@@ -44,7 +44,7 @@ class TestProducts(unittest.TestCase):
         response_data = json.loads(res.data.decode('utf-8'))
 
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(response_data['Message'], "Product updated")   
+        self.assertEqual(response_data['Message'], "Product updated")
 
     def test_invalid_product_name(self):
         products_data = {
@@ -99,7 +99,7 @@ class TestProducts(unittest.TestCase):
 
         self.assertEqual(res.status_code, 200)
         self.assertNotEqual(res.status_code, 404)
-    
+
     def test_delete_product(self):
         response = self.client.delete(
             '/api/v1/products/0',
