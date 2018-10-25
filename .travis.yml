@@ -10,7 +10,7 @@ install:
 
 script:
   - python -m unittest
-  - coverage run --source=app.api.v1.views -m unittest && coverage report
+  - coverage run --source=app -m unittest && coverage report
 
 after_success:
   - coveralls  

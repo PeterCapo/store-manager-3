@@ -1,4 +1,3 @@
-from app.api.v1.validators.utils import Validators
 products = []
 
 
@@ -6,14 +5,13 @@ class Product:
     def __init__(
         self, productName,
         price, category,
-        stockBalance, minStockBalance
+        stockBalance
     ):
         self.productName = productName
         self.price = price
         self.id = len(products)+1
         self.category = category
         self.stockBalance = stockBalance
-        self.minStockBalance = minStockBalance
 
     def save(self):
         payload = {
@@ -22,7 +20,6 @@ class Product:
             "price": self.price,
             "Stock Balance": self.stockBalance,
             "category": self.category,
-            "'Minimum Inventory": self.minStockBalance
             }
         products.append(payload)
 

@@ -5,6 +5,7 @@ Store Manager is a web application that helps store owners manage sales and prod
 [![Coverage Status](https://coveralls.io/repos/github/PeterCapo/store-manager/badge.svg?branch=API-V1)](https://coveralls.io/github/PeterCapo/store-manager?branch=API-V1)
 [![Maintainability](https://api.codeclimate.com/v1/badges/c3d3f3ab02e80bbcce6f/maintainability)](https://codeclimate.com/github/PeterCapo/store-manager/maintainability)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a5b21ac3ecd2406f965a177c8c6c5d31)](https://www.codacy.com/app/PeterCapo/store-manager?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=PeterCapo/store-manager&amp;utm_campaign=Badge_Grade)
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/d5f401cef57bce99e752)
 
 # Heroku Link
 
@@ -42,7 +43,8 @@ Clone the repository & CD into it
 | GET    | /api/v1/sales/<int:id>          | Get a specific sale record            |
 | PUT    | /api/v1/products/<int:id>       | Update products                       |
 | DELETE | /api/v1/products/<int:id>       | Get a specific product                |
-
+| POST   | /api/v1/login                   | Sign in                               | 
+| POST   | /api/v1/signup                  | Register                              | 
 
 Test on Postman 
 

@@ -1,5 +1,6 @@
 aniso8601==3.0.2
 astroid==2.0.4
+autopep8==1.4.2
 blueprint==3.4.2
 certifi==2018.10.15
 Click==7.0
