@@ -5,3 +5,4 @@ venv/
 .coverage
 .pytest_cache/
 .coveralls.yml
+coverage.xml

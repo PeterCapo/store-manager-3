@@ -107,7 +107,6 @@ class UpdateProduct(Resource):
         assert(data['Stock Balance'])
         assert (data['Price'])
         assert (data['id'])
-
         for index, product in enumerate(products):
             if product['id'] == data['id']:
                 new_product = {
@@ -117,9 +116,7 @@ class UpdateProduct(Resource):
                     "price": data['Price'],
                     "id": data['id']
                     }
-
                 products[index] = new_product
-
                 return make_response(jsonify(
                     {
                         'Message': 'Product updated',
@@ -157,13 +154,11 @@ class Products(Resource):
         category = data['Category']
         stockBalance = data['Stock Balance']
         price = data['Price']
-
         if Validators.empty_fields(
                     self, productName, price, stockBalance, category
                         ):
                 return {'message':
                         "blank field not allowed"}
-
         if next(
             filter(
                 lambda x:
@@ -172,7 +167,6 @@ class Products(Resource):
                     "A product with name'{}' already exists."
                     .format(productName)
                     }
-
         payload = {
             'id': id,
             'Product Name': productName, 'Stock Balance': stockBalance,
@@ -180,7 +174,6 @@ class Products(Resource):
             'Price': price
         }
         products.append(payload)
-
         return make_response(jsonify(
             {
                 'Message': 'Product created',
@@ -215,17 +208,18 @@ class Sales(Resource):
         attendant = data['Attendant']
         quantity = data['Quantity']
         productId = data['product id']
-
         if Validators.empty_sales_fields(
                 self, quantity, attendant, productId):
                 return {'message':
                         "blank field not allowed"}
-
         for product in products:
             if productId == int(product['id']):
                 price = product['Price'] * quantity
-
-        for product in products:
+            if quantity > product['Stock Balance']:
+                return {
+                    "message":
+                    "The quantity you entered exceeds stock balance quantity"
+                    }, 400
             if productId == int(product['id']):
                 payload = {
                     'id': id,
@@ -234,11 +228,9 @@ class Sales(Resource):
                     'product id': productId,
                     'Total price': price
                     }
-        sales.append(payload)
-        for product in products:
+                sales.append(payload)
             if productId == int(product['id']):
                 product['Stock Balance'] -= quantity
-
         return make_response(jsonify(
             {
                 'Message': 'Sales created',
@@ -261,29 +253,22 @@ class SignUp(Resource):
     def post(self):
         """ Create a new user"""
         data = SignUp.parser.parse_args()
-
         email = data["email"]
         password = data["password"]
-
         validate = Validators()
-
         if not validate.valid_email(email):
             return {"message": "enter valid email"}, 400
-
         if not validate.valid_password(password):
             return {
                 "message":
                 "password should have a capital letter & includes number"
                 }, 400
-
         if User().get_by_email(email):
             return {"message":
                     "user with {} already exists"
                     .format(email)}, 400
-
         user = User(email, password)
         Users.append(user)
-
         return {"message": "user {} created successfully".format(email)}, 201
 
 
@@ -297,12 +282,9 @@ class Login(Resource):
 
     def post(self):
         data = Login.parser.parse_args()
-
         email = data["email"]
         password = data["password"]
-
         user = User().get_by_email(email)
-
         if user and check_password_hash(user.password_hash, password):
             expires = datetime.timedelta(days=2)
             token = create_access_token(user.email, expires_delta=expires)
