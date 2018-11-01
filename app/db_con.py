@@ -39,12 +39,10 @@ def tables():
         );"""
 
     db3 = """CREATE TABLE IF NOT EXISTS users (
-        user_id serial PRIMARY KEY NOT NULL,
-        first_name character varying(50) NOT NULL,
-        last_name character varying(50) NOT NULL,
-        email character varying(50) NOT NULL,
-        role character varying(10) NOT NULL,
-        password character varying(500) NOT NULL
+        id serial PRIMARY KEY,
+        email  VARCHAR NOT NULL,
+        password VARCHAR NOT NULL,
+        admin BOOLEAN NOT NULL
         );"""
 
     queries = [db1, db2, db3]

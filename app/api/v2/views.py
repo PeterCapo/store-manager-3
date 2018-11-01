@@ -47,14 +47,12 @@ def user_only(_f):
     return wrapper_function
 
 
-class SpecificSale(Resource, Product):
+class SpecificSale(Resource, Sale):
     def __init__(self):
         self.ops = Sale()
     def get(self, id):
-        sales = self.ops.getsales()
-        for sale in sales:
-            if id == sale['sale_id']:
-                return make_response(jsonify(
+        sale = self.ops.get_one_sale(id)
+        return make_response(jsonify(
                     {
                         'Message': 'Specific sale',
                         'status': 'ok',
@@ -81,14 +79,12 @@ class SpecificProduct(Resource, Product):
     
     def get(self, id):
         products  = self.ops.get_one_product(id)
-        for product in products:
-            if id == product['product_id']:
-                return make_response(jsonify(
-                    {
-                        'Message': 'Specific product',
-                        'status': 'ok',
-                        'Data': products
-                    }), 200)
+        return make_response(jsonify(
+            {
+                'Message': 'Specific product',
+                'status': 'ok',
+                'Data': products
+            }), 200)
 
     @jwt_required
     @admin_only

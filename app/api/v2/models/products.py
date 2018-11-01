@@ -48,8 +48,7 @@ class Product():
             """SELECT * FROM products where product_id = %s""",(product_id,))
         data = self.curr.fetchone()
         resp = []
-        import pdb
-        pdb.set_trace()
+
         product_id, productName, category, price, stockBalance = data
         product_return = dict(
             product_id=int(product_id),
@@ -81,7 +80,3 @@ class Product():
         )
 
         return product_id
-        
-           
-        
-

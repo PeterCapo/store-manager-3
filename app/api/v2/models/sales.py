@@ -5,8 +5,9 @@ from app.db_con import connection
 
 sales=[]
 class Sale():
-    def __init__(self):
+    def __init__(self, sale_id = None):
         self.curr = connection().cursor()
+        self.sale_id = sale_id
 
     def save(self, attendant,
              quantity,
@@ -38,5 +39,21 @@ class Sale():
                 productId=int(productId)
             )
             resp.append(sale_return)
+
+        return resp
+
+    def get_one_sale(self, sale_id):
+        self.curr.execute(
+            """SELECT * FROM sales where sale_id = %s""", (sale_id,))
+        data = self.curr.fetchone()
+        resp = []
+        sale_id, attendant, quantity, productId = data
+        sale_return = dict(
+            sale_id=int(sale_id),
+            attendant=attendant,
+            productId=int(productId),
+            quantity=int(quantity)
+        )
+        resp.append(sale_return)
 
         return resp
