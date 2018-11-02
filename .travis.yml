@@ -13,11 +13,11 @@ install:
 services:
   - postgresql
 
-  before_script:
+before_script:
   - psql -c "create database store_manager;" -U postgres
   - psql -c "create user pokoth;" -U postgres
 
-  script:
+script:
   - python -m unittest
   - coverage run --source=app -m unittest && coverage report
 
