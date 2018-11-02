@@ -24,7 +24,7 @@ def admin_only(_f):
 
         print(user)
 
-        if not user:
+        if not user[3]:
             return {
                 'message':
                 'No access, you must be an admin to access'
@@ -39,7 +39,7 @@ def user_only(_f):
     def wrapper_function(*args, **kwargs):
         user = UserModel().get_by_email(get_jwt_identity())
 
-        if user:
+        if user[3]:
             return {
                 'message':
                 'Anauthorized access, you must be an attendant to access'}, 401
@@ -51,12 +51,12 @@ class SpecificSale(Resource, Sale):
     def __init__(self):
         self.ops = Sale()
     def get(self, id):
-        sale = self.ops.get_one_sale(id)
+        sales = Sale().get_one_sale(id)
         return make_response(jsonify(
                     {
                         'Message': 'Specific sale',
                         'status': 'ok',
-                        'Data': sale
+                        'Data': sales
                     }), 200)
 
     @jwt_required

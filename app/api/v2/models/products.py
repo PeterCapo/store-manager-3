@@ -73,7 +73,6 @@ class Product():
         return payload
     
     def delete(self, product_id):
-        import pdb; pdb.set_trace()
         """ delete product item """
         self.curr.execute(
             """DELETE FROM products WHERE product_id = %s""", (product_id,)

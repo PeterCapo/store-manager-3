@@ -23,7 +23,6 @@ class UserModel():
         query = """INSERT INTO users(email, password, admin) VALUES( %s, %s, %s);"""
         data = (self.email, self.password_hash, self.admin)
         self.curr.execute(query, data)
-        print(query)
         return users
         
 

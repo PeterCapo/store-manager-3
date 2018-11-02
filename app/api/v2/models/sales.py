@@ -44,16 +44,17 @@ class Sale():
 
     def get_one_sale(self, sale_id):
         self.curr.execute(
-            """SELECT * FROM sales where sale_id = %s""", (sale_id,))
-        data = self.curr.fetchone()
+            """SELECT * FROM sales where sales_id = %s""",(sale_id,))
+        data = self.curr.fetchall()
         resp = []
-        sale_id, attendant, quantity, productId = data
-        sale_return = dict(
+        for sale in data:
+            sale_id, productId, quantity, attendant = sale
+            product_return = dict(
             sale_id=int(sale_id),
-            attendant=attendant,
             productId=int(productId),
-            quantity=int(quantity)
+            quantity=int(quantity),
+            attendant=attendant
         )
-        resp.append(sale_return)
+        resp.append(product_return)
 
         return resp

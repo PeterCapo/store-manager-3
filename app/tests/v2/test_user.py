@@ -1,17 +1,21 @@
 import unittest
 import json
-from app import create_app
+from run import create_tables
+from ...import create_app
+from ...db_con import connection
 
 
 class TestProducts(unittest.TestCase):
     def setUp(self):
-        self.app = create_app()
+        self.app = create_app("testing")
         self.client = self.app.test_client()
-        self.app_context = self.app.app_context()
-        self.app_context.push()
+        with self.app.app_context():
+            connection()
+            create_tables()
         self.admin_data = {
             "email": "admin@gmail.com",
-            "password": "admin"
+            "password": "admin",
+            "admin": "True"
         }
         self.invalid_data = {
             "email": "admin@",
@@ -24,7 +28,7 @@ class TestProducts(unittest.TestCase):
 
     def login(self):
         response = self.client.post(
-            "api/v1/login",
+            "api/v2/login",
             data=json.dumps(self.admin_data),
             headers={'content-type': 'application/json'}
         )
@@ -37,7 +41,7 @@ class TestProducts(unittest.TestCase):
 
     def test_login(self):
         response = self.client.post(
-            "api/v1/login",
+            "api/v2/login",
             data=json.dumps(self.admin_data),
             headers={'content-type': 'application/json'}
         )
@@ -45,7 +49,7 @@ class TestProducts(unittest.TestCase):
 
     def test_invalid_email(self):
         response = self.client.post(
-            "api/v1/login",
+            "api/v2/login",
             data=json.dumps(self.invalid_data),
             headers={'content-type': 'application/json'}
         )
@@ -53,7 +57,7 @@ class TestProducts(unittest.TestCase):
 
     def test_invalid_password(self):
         response = self.client.post(
-            "api/v1/login",
+            "api/v2/login",
             data=json.dumps(self.invalid_pass),
             headers={'content-type': 'application/json'}
         )

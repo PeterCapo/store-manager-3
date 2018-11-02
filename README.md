@@ -35,16 +35,16 @@ Clone the repository & CD into it
 
 | Method | Endpoint                        | Description                           |
 | ------ | ------------------------------- | ------------------------------------- |
-| POST   | /api/v1/products                | Create a product                      |
-| POST   | /api/v1/sales                   | Create a sale record                  |
-| GET    | /api/v1/products                | Get all products                      |
-| GET    | /api/v1/sales                   | Get all sales                         |
-| GET    | /api/v1/products/<int:id>       | Get a specific product                |
-| GET    | /api/v1/sales/<int:id>          | Get a specific sale record            |
-| PUT    | /api/v1/products/<int:id>       | Update products                       |
-| DELETE | /api/v1/products/<int:id>       | Get a specific product                |
-| POST   | /api/v1/login                   | Sign in                               | 
-| POST   | /api/v1/signup                  | Register                              | 
+| POST   | /api/v2/products                | Create a product                      |
+| POST   | /api/v2/sales                   | Create a sale record                  |
+| GET    | /api/v2/products                | Get all products                      |
+| GET    | /api/v2/sales                   | Get all sales                         |
+| GET    | /api/v2/products/<int:id>       | Get a specific product                |
+| GET    | /api/v2/sales/<int:id>          | Get a specific sale record            |
+| PUT    | /api/v2/products/<int:id>       | Update products                       |
+| DELETE | /api/v2/products/<int:id>       | Get a specific product                |
+| POST   | /api/v2/login                   | Sign in                               | 
+| POST   | /api/v2/signup                  | Register                              | 
 
 Test on Postman 
 

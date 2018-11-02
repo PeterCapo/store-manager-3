@@ -10,7 +10,11 @@ install:
   - pip install -r requirements.txt
   - pip install coveralls
 
-script:
+  before_script:
+  - psql -c "create database store_manager;" -U postgres
+  - psql -c "create user pokoth;" -U postgres
+
+  script:
   - python -m unittest
   - coverage run --source=app -m unittest && coverage report
 
