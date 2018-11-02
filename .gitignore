@@ -6,3 +6,4 @@ venv/
 .pytest_cache/
 .coveralls.yml
 coverage.xml
+vim.exe.stackdump
