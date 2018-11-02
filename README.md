@@ -1,10 +1,9 @@
 # store-manager
 Store Manager is a web application that helps store owners manage sales and product inventory records. This application is meant for use in a single store
 
-[![Build Status](https://travis-ci.com/PeterCapo/store-manager.svg?branch=API-V1)](https://travis-ci.com/PeterCapo/store-manager)
-[![Coverage Status](https://coveralls.io/repos/github/PeterCapo/store-manager/badge.svg?branch=API-V1)](https://coveralls.io/github/PeterCapo/store-manager?branch=API-V1)
-[![Maintainability](https://api.codeclimate.com/v1/badges/c3d3f3ab02e80bbcce6f/maintainability)](https://codeclimate.com/github/PeterCapo/store-manager/maintainability)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a5b21ac3ecd2406f965a177c8c6c5d31)](https://www.codacy.com/app/PeterCapo/store-manager?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=PeterCapo/store-manager&amp;utm_campaign=Badge_Grade)
+[![Build Status](https://travis-ci.com/PeterCapo/store-manager-3.svg?branch=master)](https://travis-ci.com/PeterCapo/store-manager-3)
+[![Coverage Status](https://coveralls.io/repos/github/PeterCapo/store-manager-3/badge.svg?branch=master)](https://coveralls.io/github/PeterCapo/store-manager-3?branch=master)
+
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/d5f401cef57bce99e752)
 
 # Heroku Link
