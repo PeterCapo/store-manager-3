@@ -9,22 +9,22 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 
 from app.api.v2.models.products import products, Product
 from app.api.v2.models.sales import sales, Sale
-from app.api.v1.models.user import Users, User
-from app.api.v1.validators.utils import Validators
+from app.api.v2.models.users import UserModel
+from app.api.v2.validators.utils import Validators
 
-user = User("admin@gmail.com", "admin", admin=True)
-Users.append(user)
+user = UserModel("admin@gmail.com", "admin", admin=True)
+user.save()
 
 
 def admin_only(_f):
     ''' Restrict access if not admin '''
     @wraps(_f)
     def wrapper_function(*args, **kwargs):
-        user = User().get_by_email(get_jwt_identity())
+        user = UserModel().get_by_email(get_jwt_identity())
 
         print(user)
 
-        if not user.admin:
+        if not user:
             return {
                 'message':
                 'No access, you must be an admin to access'
@@ -37,9 +37,9 @@ def user_only(_f):
     ''' Restrict access if not attendant '''
     @wraps(_f)
     def wrapper_function(*args, **kwargs):
-        user = User().get_by_email(get_jwt_identity())
+        user = UserModel().get_by_email(get_jwt_identity())
 
-        if user.admin:
+        if user:
             return {
                 'message':
                 'Anauthorized access, you must be an attendant to access'}, 401
@@ -108,11 +108,11 @@ class UpdateProduct(Resource, Product):
         data = json.loads(request.data)
         assert(data['Product Name'])
         assert(data['Category'])
-        assert(data['Stock Balance'])
         assert (data['Price'])
+        assert(data['Stock Balance'])
         assert (id)
 
-        result = self.ops.update_product(data['Product Name'], data['Category'], data['Stock Balance'], data['Price'],id)
+        result = self.ops.update_product(data['Product Name'], data['Category'], data['Price'], data['Stock Balance'], id)
         return make_response(jsonify(
                     {
                         'Message': 'Product updated',
@@ -251,7 +251,7 @@ class Sales(Resource, Sale):
             }), 201)
 
 
-class SignUp(Resource):
+class SignUp(Resource, UserModel):
 
     parser = reqparse.RequestParser()
 
@@ -267,6 +267,7 @@ class SignUp(Resource):
         data = SignUp.parser.parse_args()
         email = data["email"]
         password = data["password"]
+
         validate = Validators()
         if not validate.valid_email(email):
             return {"message": "enter valid email"}, 400
@@ -275,16 +276,16 @@ class SignUp(Resource):
                 "message":
                 "password should have a capital letter & includes number"
             }, 400
-        if User().get_by_email(email):
+        if UserModel().get_by_email(email):
             return {"message":
                     "user with {} already exists"
                     .format(email)}, 400
-        user = User(email, password)
-        Users.append(user)
+        user = UserModel(email, password)
+        user.save()
         return {"message": "user {} created successfully".format(email)}, 201
 
 
-class Login(Resource):
+class Login(Resource, UserModel):
     parser = reqparse.RequestParser()
 
     parser.add_argument("email", type=str, required=True,
@@ -296,9 +297,9 @@ class Login(Resource):
         data = Login.parser.parse_args()
         email = data["email"]
         password = data["password"]
-        user = User().get_by_email(email)
-        if user and check_password_hash(user.password_hash, password):
+        user = UserModel().get_by_email(email)
+        if user and check_password_hash(user[2], password):
             expires = datetime.timedelta(days=2)
-            token = create_access_token(user.email, expires_delta=expires)
+            token = create_access_token(user[1], expires_delta=expires)
             return {'token': token, 'message': 'successfully logged'}, 200
         return {'message': 'user not found'}, 404

@@ -61,15 +61,15 @@ class Product():
 
         return resp
     
-    def update_product(self, productName, stockBalance, category, price, id):
+    def update_product(self, productName, category, price, stockBalance, product_id):
         payload = {
             "Product Name": productName,
+            "Category": category,
             "Price": price,
-            "Stock Balance": stockBalance,
-            "Category": category
+            "Stock Balance": stockBalance
         }
-        query = """UPDATE products set productName =%s, category =%s, price=%s = %s where product_id = %s """, (productName, stockBalance, category, price)
-        self.curr.execute(query, payload)
+        query = """UPDATE products set productName =%s, category =%s, price=%s, stockBalance= %s where product_id = %s """
+        self.curr.execute(query,  (productName, category, price, stockBalance, product_id))
         return payload
     
     def delete(self, product_id):
