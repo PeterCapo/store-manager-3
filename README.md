@@ -6,9 +6,6 @@ Store Manager is a web application that helps store owners manage sales and prod
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/d5f401cef57bce99e752)
 
-# Heroku Link
-
-https://store-managerv1.herokuapp.com/
 
 # Installation and Setup
 
