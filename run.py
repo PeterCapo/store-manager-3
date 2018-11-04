@@ -6,7 +6,7 @@ from app.api.v2.models.users import UserModel
 user = UserModel("admin@gmail.com", "admin", admin=True)
 
 
-app = create_app()
+app = create_app('development')
 
 
 if __name__ == '__main__':

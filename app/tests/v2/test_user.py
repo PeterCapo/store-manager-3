@@ -1,16 +1,14 @@
 import unittest
 import json
-from run import create_tables
 from ...import create_app
-from ...db_con import connection
+from ...db_con import create_tables
 
 
 class TestProducts(unittest.TestCase):
     def setUp(self):
-        self.app = create_app()
+        self.app = create_app('testing')
         self.client = self.app.test_client()
         with self.app.app_context():
-            connection()
             create_tables()
         self.admin_data = {
             "email": "admin@gmail.com",

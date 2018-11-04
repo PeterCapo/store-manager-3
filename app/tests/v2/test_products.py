@@ -1,23 +1,22 @@
 import unittest
 import json
 from app import create_app
-from ...db_con import connection, create_tables
+from ...db_con import create_tables
 
 
 class TestProducts(unittest.TestCase):
     def setUp(self):
-        self.app = create_app()
+        self.app = create_app('testing')
         self.client = self.app.test_client()
         with self.app.app_context():
-            connection()
             create_tables()
 
         self.data = {
-            "Product Name": "sony",
-            "Category": "electronics",
-            "Stock Balance": 600,
-            "Price": 20000,
-            "product_id":3
+            "Product Name": "iphone",
+            "Category": "mobile",
+            "Stock Balance": 500,
+            "Price": 400,
+            "product_id":2
             }
         self.admin_data = {
             "email": "admin@gmail.com",
@@ -40,6 +39,16 @@ class TestProducts(unittest.TestCase):
         token = json.loads(response.data).get("token", None)
         return token
 
+
+    def test_specific_product(self):
+
+        res = self.client.get(
+            '/api/v2/products/2',
+            headers={"content-type": "application/json"}
+        )
+
+        self.assertEqual(res.status_code, 200)
+        self.assertNotEqual(res.status_code, 404)
 
     def test_delete_product(self):
         token = self.get_token()
