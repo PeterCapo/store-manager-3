@@ -48,4 +48,4 @@ Clone the repository & CD into it
 Test on Postman 
 
 # Run Test
-- python -m unittest
+- pytest
