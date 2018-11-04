@@ -12,9 +12,6 @@ from app.api.v2.models.sales import sales, Sale
 from app.api.v2.models.users import UserModel
 from app.api.v2.validators.utils import Validators
 
-user = UserModel("admin@gmail.com", "admin", admin=True)
-user.save()
-
 
 def admin_only(_f):
     ''' Restrict access if not admin '''
@@ -301,5 +298,5 @@ class Login(Resource, UserModel):
         if user and check_password_hash(user[2], password):
             expires = datetime.timedelta(days=2)
             token = create_access_token(user[1], expires_delta=expires)
-            return {'token': token, 'message': 'successfully logged'}, 200
+            return {'token': token, 'message': 'successfully logged'}, 201
         return {'message': 'user not found'}, 404

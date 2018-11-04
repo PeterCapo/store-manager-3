@@ -7,12 +7,12 @@ db_url = os.getenv('DATABASE_URL')
 
 
 def connection():
-    conn = psycopg2.connect(url)
+    conn = psycopg2.connect(db_url)
     conn.autocommit = True
     return conn
 
 def create_tables():
-    curr=connection().cursor()
+    curr = connection().cursor()
     queries = tables()
     for query in queries:
         curr.execute(query)

@@ -6,7 +6,7 @@ from ...db_con import connection, create_tables
 
 class TestSales(unittest.TestCase):
     def setUp(self):
-        self.app = create_app(config_name='testing')
+        self.app = create_app()
         self.client = self.app.test_client()
         with self.app.app_context():
             connection()

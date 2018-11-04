@@ -7,7 +7,7 @@ from ...db_con import connection
 
 class TestProducts(unittest.TestCase):
     def setUp(self):
-        self.app = create_app("testing")
+        self.app = create_app()
         self.client = self.app.test_client()
         with self.app.app_context():
             connection()
@@ -45,7 +45,7 @@ class TestProducts(unittest.TestCase):
             data=json.dumps(self.admin_data),
             headers={'content-type': 'application/json'}
         )
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 201)
 
     def test_invalid_email(self):
         response = self.client.post(
