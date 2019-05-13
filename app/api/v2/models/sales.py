@@ -54,7 +54,7 @@ class Sale():
             productId=int(productId),
             quantity=int(quantity),
             attendant=attendant
-        )
-        resp.append(product_return)
+            )
+            resp.append(product_return)
 
         return resp
