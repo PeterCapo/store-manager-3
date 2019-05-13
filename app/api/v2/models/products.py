@@ -48,16 +48,16 @@ class Product():
             """SELECT * FROM products where product_id = %s""",(product_id,))
         data = self.curr.fetchone()
         resp = []
-        for product in data:
-            product_id, productName, category, price, stockBalance = product
-            product_return = dict(
+
+        product_id, productName, category, price, stockBalance = data
+        product_return = dict(
             product_id=int(product_id),
             productName=productName,
             stockBalance=int(stockBalance),
             Price=int(price),
             Category=category
-            )
-            resp.append(product_return)
+           )
+        resp.append(product_return)
 
         return resp
     

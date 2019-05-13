@@ -43,7 +43,7 @@ class TestProducts(unittest.TestCase):
     def test_specific_product(self):
 
         res = self.client.get(
-            '/api/v2/products/2',
+            '/api/v2/products/1',
             headers={"content-type": "application/json"}
         )
 
