@@ -1,0 +1,9 @@
+__pycache__
+.env
+.vscode
+venv/
+.coverage
+.pytest_cache/
+.coveralls.yml
+coverage.xml
+vim.exe.stackdump

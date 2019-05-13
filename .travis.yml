@@ -1,0 +1,28 @@
+language: python
+
+python:
+  - "3.7-dev"  # 3.7 development branch
+
+env:
+    JWT_SECRET_KEY="HS256"
+    DATABASE_URL="dbname='store_manager' host='localhost' port='5432' user='postgres' password='postgres'"
+    DATABASE_URL="dbname='store_test' host='localhost' port='5432' user='postgres' password='postgres'"
+
+install:
+  - pip install -r requirements.txt
+  - pip install coveralls
+
+services:
+  - postgresql
+
+before_script:
+  - psql -c "create database store_manager;" -U postgres
+  - psql -c "create database store_test;" -U postgres
+  - psql -c "create user pokoth;" -U postgres
+
+script:
+  - pytest
+  - coverage run --source=app -m unittest && coverage report
+
+after_success:
+  - coveralls  
