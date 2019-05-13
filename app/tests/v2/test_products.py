@@ -39,11 +39,10 @@ class TestProducts(unittest.TestCase):
         token = json.loads(response.data).get("token", None)
         return token
 
-
     def test_specific_product(self):
-
         res = self.client.get(
-            '/api/v2/products/1',
+            '/api/v2/products/2',
+            data=json.dumps(self.data),
             headers={"content-type": "application/json"}
         )
 
