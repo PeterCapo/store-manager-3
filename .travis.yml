@@ -21,7 +21,7 @@ before_script:
   - psql -c "create user pokoth;" -U postgres
 
 script:
-  - pytest
+  - python -m unittest
   - coverage run --source=app -m unittest && coverage report
 
 after_success:
